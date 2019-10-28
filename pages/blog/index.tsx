@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Layout from "../../components/Layout";
-import { slugifyFileName } from '../../lib';
-import { BlogPost } from '../../types';
+import { BlogPost, BlogManifest } from "../../types";
+import { NextPage } from "next";
 
 interface Props {
-  postsList: BlogPost[]
+  postsList: BlogPost[];
 }
 
-const Blog = ({ postsList }: Props) => (
+const Blog: NextPage<Props> = ({ postsList }) => (
   <Layout>
     {postsList.map((post: any) => (
       <div key={post.slug} className="post">
@@ -32,15 +32,11 @@ const Blog = ({ postsList }: Props) => (
 );
 
 Blog.getInitialProps = async () => {
-  const markdownFiles = require
-    .context("../../content/blogPosts", false, /\.md$/)
-    .keys()
-    .map((relativePath: string) => relativePath.substring(2));
-
+  const blogManifest = (process.env.blogManifest || {}) as BlogManifest;
   const postsList = await Promise.all(
-    markdownFiles.map(async (path: string) => {
-      const markdown = await import(`../../content/blogPosts/${path}`);
-      return { ...markdown, slug: slugifyFileName(path) };
+    Object.entries(blogManifest).map(async ([slug, fileName]) => {
+      const markdown = await import(`../../content/blogPosts/${fileName}`);
+      return { ...markdown, slug };
     })
   );
 

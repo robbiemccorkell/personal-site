@@ -1,13 +1,13 @@
-import Layout from "../../../components/Layout";
-import { BlogPost } from "../../../types";
-import { NextPageContext } from "next";
+import { NextPageContext, NextPage } from "next";
 import ErrorPage from "next/error";
+import Layout from "../../../components/Layout";
+import { BlogPost, BlogManifest } from "../../../types";
 
 interface Props {
   blogpost: BlogPost;
 }
 
-const Post = ({ blogpost }: Props) => {
+const Post: NextPage<Props> = ({ blogpost }) => {
   if (!blogpost) return <ErrorPage statusCode={404} />;
 
   const { html, attributes } = blogpost;
@@ -32,8 +32,9 @@ const Post = ({ blogpost }: Props) => {
 };
 
 Post.getInitialProps = async ({ query, res }: NextPageContext) => {
-  const { id: slug } = query;
-  const blogpost = await import(`../../../content/blogPosts/${slug}.md`).catch(
+  const slug = Array.isArray(query.slug) ? query.slug[0] : query.slug;
+  const blogManifest = (process.env.blogManifest || {}) as BlogManifest;
+  const blogpost = await import(`../../../content/blogPosts/${blogManifest[slug]}`).catch(
     () => {
       if (res) res.statusCode = 404;
     }
