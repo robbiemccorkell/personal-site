@@ -1,0 +1,163 @@
+---
+title: "Programming a quantum computer: generating true random numbers"
+date: 2018-09-24T12:00:00.000Z
+thumbnail: /static/img/720px-ibm_q_computer.jpg
+---
+
+Computers are deterministic, predictable machines and are designed to blindly follow sets of instructions in a repeatable manner. This nature of computers has of course served us extremely well through most of the last century, but this design comes with a fundamental flaw: it cannot perform random operations¹. Random number generators are an extremely important component of many applications today, but whilst the numbers they generate might be random enough, they are “pseudo” random and are often possible to predict or reverse engineer in some way.
+
+Today it is possible to harness the strange, unpredictable nature of subatomic particles and use them to perform calculations inside a quantum computer. With just a few lines of code we can program a real quantum computer to generate true random numbers for us. Something previously impossible using a classical, Turing based computer.
+
+## Random number generators today
+
+Most popular programming languages have some form of random number generator built in for developers to use. These generators generally take an input seed representing the current date and time, scramble this value up using an algorithm, and output a value so different from the input that we perceive them as random. The scrambling function is a predictable algorithm with a high amount of entropy (for a small change in input they return a large change in output), and we get a different number out each time because the input seed changes over time. For almost all practical applications this system works perfectly well, but since it’s a predictable system it isn’t truly random.
+
+Let’s take the random number generator provided by Javascript as an example. First of all, since Javascript is a language interpreted in different environments (browser or node.js), it’s up to the interpreter to decide on what algorithms to use that conform to the ECMAScript spec. Today, most modern browsers use the same randomness algorithm to power Javascript’s Math.random() function called xorshift128+.
+
+Here is a general version of this algorithm written in C²:
+
+<script src="https://gist.github.com/robbiemccorkell/872f6deb60182fb71cac0f7a44fa1334.js"></script>
+
+The purpose of this code is to take some input (the seed) and scramble it to such a degree that any two outputs from the two separate inputs will seem completely different to each other and therefore random. The algorithm achieves this by shifting the seed’s binary representations up and down and reversing the bit representations in between steps, resulting in a bit representation of a number completely different from the seed input.
+
+In order for this function to provide different results each time it is run, we need an always changing seed. Browsers (and other programming languages) often simply use a numerical representation of the current date and time³, for example the UNIX epoch time, the number of milliseconds that have elapsed since 1 January 1970⁴.
+
+With this seed, and the high entropy algorithm above, we can achieve a very convincing random number generator. Computer systems use these functions all the time without issue, but we cannot call it a truly random number generator. If somebody knows how the random number generator works, and can predict the input seed, they can also predict the output of the function. One way to improve the randomness of this system is by making the seed harder to predict. For example, many systems use the cosmic microwave background radiation (the electromagnetic radio waves still left over by the big bang) as a seed⁵ since nobody can predict how this background noise will behave at any given point in time.
+
+A randomness system using an unpredictable seed like the microwave background is at this point totally random by today’s knowledge. Nobody currently can predict how this seed will behave at any given point in time, and so cannot predict the random number it generates. This type of seed may even be impossible for us to predict in the future, but if we have the same measurement of the cosmic microwave background as somebody else and use it as an input to the random number generator we will be able to predict their result.
+
+To generate a truly random number we need to find something in nature that we cannot perfectly predict, something that can only be described by probability. Until the early 20th century this was believed not to exist, but the theory of quantum mechanics opened doors to an even stranger and unpredictable world.
+
+## Probability in the quantum world
+
+Quantum mechanics is a theory which describes the nature of particles on the subatomic scale. It says that as we observe the world at a smaller and smaller scale, classical descriptions of particles and forces like those defined by Sir Isaac Newton in the 18th century become less accurate and we must switch to different quantum descriptions driven by statistics and probability. For example the exact position of an electron around an atom cannot be predicted, we can only predict the probability of finding an electron in a given area around the atom at a given time⁶.
+
+To make things even stranger, the Copenhagen Interpretation of quantum mechanics devised by Niels Bohr and Werner Heisenberg states that quantum systems do not have definite properties prior to being measured, but exist in all possible states simultaneously in a principle known as superposition. It is only when the system is observed that the superposition collapses and the system exists in a single definite state. This is known as the observer effect. Taking the example of the position of an electron, we can predict a probability that an electron will be present in a particular location at a particular time, but before that measurement the electron exists in all possible positions around the atom. During the measurement the electron will reveal itself to be in one place, but by observing and measuring the electron we have altered its state and cannot determine other properties like momentum due to the uncertainty principle⁷.
+
+This interpretation of the quantum world understandably shook the physics community at the time, and is debated to this day. Einstein refused to believe that reality is governed by probability and famously said “I, at any rate, am convinced that He (God) does not throw dice” and “Do you really think the moon isn’t there if you aren’t looking at it?”. In response, Niles Bohr later responded “Einstein, don’t tell God what to do.”⁸
+
+Like it or not, Quantum theory remains our best understanding of the subatomic world and has been developed into the heart of an all new type information processor. Quantum computers rely on the ability for quantum particles to exist in a superposition of multiple states at once to perform calculations. Since quantum computers can manipulate the superpositions of particles which are governed by probability, we can use them as a tool to harness the nature of the quantum world and build a true random number generator.
+
+## Qubits and quantum gates
+
+Classical computers use binary digits, or bits, to represent information. A bit can take the values 0 or 1 and are represented by one of two levels of DC voltage inside a computer processor. Quantum computers usually represent information the same way, using a 0 or 1 bit, but they physically implement these states using binary properties of subatomic particles. These properties might be the spin of an electron (spin up and spin down) or the polarisation of a photon (horizontal and vertical polarisation). Either of these representations can be described by quantum mechanics, and can be in a superposition of both states at once⁹. This means that a quantum bit of information, or qubit, can exist in a superposition of both states 0 and 1 at the same time. To measure the result of a computation, we must measure the quantum state inside the computer and force these particles to choose a 0 or 1 state.
+
+To manipulate qubits in a quantum computer we use quantum gates much like the gates of a classical circuit. Whilst a classical computer can perform operations on bits such as flipping them to their opposite value, quantum gates can do these operations and more advanced quantum operations such as pushing a qubit into a superposition of both possible values. A gate that pushes a qubit into a superposition is called a Hadamard gate and is one of the most fundamental and commonly used logic gates in quantum computing¹⁰.
+
+When we push the spin of an electron into a superposition of both possible spin up and down states representing the values 1 and 0 of a qubit, the electron can be said to have a simultaneous spin of both values, and the qubit is in a superposition of 0 and 1. When measuring this qubit, we collapse the superposition and force it into one of these two possible states, each with an equal probability of occurring¹¹. With each superposition and measurement we have a 50% chance of measuring either 1 or 0. We would then have performed the equivalent of a coin flip using the fundamental laws of the subatomic world.
+
+In order to generate our random number from a quantum coin toss all we need to do is:
+
+1. Get a qubit with a predefined state. Either 0 or 1 will do.
+
+1. Force that qubit into a superposition using a Hadamard gate.
+
+1. Measure the state of the qubit.
+
+1. Obtain a value of 0 or 1 with equal probability.
+
+Now all we need to do to create our true random number generator is get access to a quantum computer and program in the above steps.
+
+## Programming a quantum computer
+
+Amazingly, some companies have now made simple quantum computers available in the cloud for use by the general public. One of these services is provided by IBM and is called [IBM Q Experience.](https://quantumexperience.ng.bluemix.net/) Currently this service provides access to two 5 qubit processors and two 16 qubit processors distributed around the globe. Once user’s have created a free account, computation time is allocated using a credit system, and free users are given a small number of credits to use that refresh each day. You can design your circuit using an online editor or programatically via an SDK (16 qubit processors are currently only available to users of the SDK), and when your program is ready to execute it is put into a queue to be run when the processor is next available.
+
+To build our random number generator we will use the provided SDK for IBM Q Experience called [Qiskit](https://qiskit.org/). We will need to write our code in Python, and whilst writing the application we will also be able to test it on a simulated quantum processor locally on our own machine to save time and credits.
+
+First let’s start with the basic code to complete the four steps above:
+
+<script src="https://gist.github.com/robbiemccorkell/664e023582d93bec057fa5ae43a837e9.js"></script>
+
+Here we create a quantum circuit from two single bit registers, one quantum register with a single qubit and a similar sized classical register for interacting with the quantum register. We then apply a Hadamard gate to our single qubit to force it into a superposition state, and measure that state on to our classical register. Finally we execute the process we just described on a local simulated processor, telling the SDK to only run the process once. For most other purposes, we would want to run a quantum circuit multiple times and average out the results to eliminate the inherent randomness in the system, but for our purposes just a single run will work perfectly. We can print out the counts of our results, which will display as a map of possible bit values to the number of times they were measured for each run e.g: { “0”: 1, “1”: 0 }. You will find that once this program is run on a quantum processor, the measurement of a 0 or 1 value will occur with 50% probability.
+
+This code has given us the equivalent of a perfect coin toss, so now all we need to do is find a way to take a series of binary coin tosses and convert them to a random number in a given range. An easy way to do this is to take the random bit values we generate with the code above and put them together in sequence to create a binary number. When we convert this binary number to decimal we will find that it will be a random decimal every time.
+
+If we are going to allow input from a user to choose a range for generating our number, we will need to figure out how many bits are required to represent a given base 10 integer so we know how many random bits to generate. The equation we need to do this is¹²:
+
+![](https://cdn-images-1.medium.com/max/2000/0*amqBaZaNPWYjyKA1)
+
+Which we can represent in python as the function:
+
+<script src="https://gist.github.com/robbiemccorkell/1f6d985efeeb06a92888d1d1b513aecc.js"></script>
+
+Using this we can write a function that generates a random number to a given maximum by repeating the quantum circuit above for each bit that we require:
+
+<script src="https://gist.github.com/robbiemccorkell/0219c43114f2d976dac8579110c7b989.js"></script>
+
+This code is the core of our quantum random number generator. We calculate the number of bits required to generate a number up to the given maximum, and for each required bit we generate a random value using Qiskit and add it on to a string of generated bits. We then parse this string as a base 10 integer from base 2.
+
+However there is a crucial problem with this code; if you run it enough times you will realise it actually generates numbers up to a maximum of the next nearest power of two to the input. This is because we have calculated how many bits are required to represent a given number, but if all these bits have the value 1, then our number could easily be higher than the given maximum. It’s surprisingly difficult to solve this problem, and the best way to keep the number below our maximum without introducing some other statistical bias is using rejection sampling¹³. We would simply need to generate a number, and if it was too large reject that number and run the process again. Since we have limited resources on a free account with IBM Q Experience, we will keep our code simple and just restrict the users’ input to powers of two by rounding up the input to the next highest power:
+
+<script src="https://gist.github.com/robbiemccorkell/7dc534bc7f68bafd3bc6d80b0d673c15.js"></script>
+
+We can also quite easily parse command line input from a user to take in a desired maximum, as well as a flag to tell the program whether to run on a real quantum computer and an option to pass an API key for IBM Q Experience:
+
+<script src="https://gist.github.com/robbiemccorkell/873065c9a1d2e4045472561f597dbca0.js"></script>
+
+Finally, before we can run our code on a real quantum processor, it would be best to optimise our solution to loop a minimal number of times to save on free resources on our cloud quantum processor. As an example, if we were to use the 5 qubit processor “IBM Q5 Tenerife” (backend name ibmqx4), we could utilise all 5 qubits by passing all of them through Hadamard gates and combining their values when measured. This would allow us to generate a random number up to 31 with a single loop, and IBM Q Experience provides enough credits for 3 instructions allowing us to generate a number up to 32767 in a single run.
+
+With all of these elements combined, our final code becomes:
+
+<script src="https://gist.github.com/robbiemccorkell/5eabd5ac8e78e738b3bbf993865b9f8b.js"></script>
+
+The full code and a description on how to run it can be found on [GitHub](https://github.com/robbiemccorkell/quantum-random-number).
+
+## What just happened?
+
+If you sign up for a free account with IBM Q Experience, get an API key and run this program like so:
+
+    python ./main.py -remote --qx-token <your-token> 15
+
+you will find the process will take some time to run (approximately 10–20 minutes) and return a random integer between 0 and 16. Here is what happened while you were waiting:
+
+1. Your computer parsed the command line input and calculated how many random bits are required to represent a number between 0 and the next power of 2 from 15. In this case 4 bits are required to build a number up to 16, which means only one instruction to send to a 5 qubit quantum processor.
+
+1. A series of instructions are built by the Qiskit SDK and sent to IBM Q Experience to be executed.
+
+1. Your instructions are placed in a queue to be run by the “IBM Q5 Tenerife” quantum computer in New York.
+
+1. Once ready, the IBM Q5 Tenerife quantum computer allocates 4 of 5 available qubits to the requested task. It applies a Hadamard gate to these 4 qubits, entering them into a superposition of quantum spin.
+
+1. The spin of each qubit is them measured, colllapsing the quantum superposition and revealing a random binary state which is then output to a 4 bit classical register.
+
+1. The measured binary state is then sent back to IBM Q Experience, and back to the Qiskit SDK running on your computer.
+
+1. Your computer takes these binary measurements and builds a 4 bit binary number out of them.
+
+1. Your binary number is converted into a base 10 integer and returned to the user.
+
+Congratulations, you have just controlled a quantum computer and harnessed the strange unpredictable properties of subatomic particles to generate a true random number. Please consider using your newly found superpowers for good.
+
+Know of some interesting practical applications for cloud quantum computing? Let me know [@robbiemccorkell](https://twitter.com/robbiemccorkell).
+
+References:
+
+1. [Jason M. Rubin, MIT School of Engineering (2011), Can a computer generate a truly random number?](https://engineering.mit.edu/engage/ask-an-engineer/can-a-computer-generate-a-truly-random-number/)
+
+1. [Daniel Simmons, Hackernoon (2014), How does JavaScript’s Math.random() generate random numbers?](https://hackernoon.com/how-does-javascripts-math-random-generate-random-numbers-ef0de6a20131)
+
+1. [Adam Hyland, bocoup (2013), Random number generation in Javascript](https://bocoup.com/blog/random-numbers)
+
+1. [The Open Group Base Specifications Issue 7 (2018), 4.16: Seconds Since the Epoch](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_16)
+
+1. [Jeffrey S. Lee, Gerald B. Cleaver, Cornell University Library (2015), The Cosmic Microwave Background Radiation Power Spectrum as a Random Bit Generator for Symmetric and Asymmetric-Key Cryptography](https://arxiv.org/abs/1511.02511)
+
+1. Tony Hey, Patrick Walters, Cambridge University Press (1987), The Quantum Universe
+
+1. Alastair I. M. Rae, Taylor & Francis Group (2008), Quantum Mechanics (5th Ed)
+
+1. [Wikipedia (2018), Copenhagen interpretation](https://en.wikipedia.org/wiki/Copenhagen_interpretation#cite_note-56)
+
+1. Eleanor Riefffel, Wolfgang Polak, Massachusetts Institute of Technology (2011), Quantum Computing: A Gentle Introduction
+
+1. [Artur Ekert, Patrick Hayden, Hitoshi Inamori, University of Oxford (2008), Basic concepts in quantum computation](https://arxiv.org/pdf/quant-ph/0011013.pdf)
+
+1. [Daniel Baumann, University of Cambridge (2013), Concepts in Theoretical Physics](http://www.damtp.cam.ac.uk/user/db275/concepts/Concepts.pdf)
+
+1. [Rick Regan, Exploring Binary (2012), Number of Bits in a Decimal Integer](https://www.exploringbinary.com/number-of-bits-in-a-decimal-integer/)
+
+1. [Dimitri DeFigueiredo Ph.D (2017), Generating random integers from random bytes](http://dimitri.xyz/random-ints-from-random-bits/)
+
+*Edit: Thanks to [Bob Sutor](https://twitter.com/snarky_android/status/1063793403593465856) for pointing out that the *IBM Q 5 Tenerife quantum computer is only related to Tenerife by name, not location, and is situated in New York.
+
+*Originally published at [blog.red-badger.com](https://blog.red-badger.com/2018/9/24/generate-true-random-numbers-with-a-quantum-computer).*
