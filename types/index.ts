@@ -3,6 +3,7 @@ export interface BlogPost {
     title?: string;
     date?: string;
     thumbnail?: string;
+    canonical?: string;
   };
   html: string;
   slug: string;

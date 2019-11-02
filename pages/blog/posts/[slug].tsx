@@ -1,5 +1,6 @@
 import { NextPageContext, NextPage } from "next";
 import ErrorPage from "next/error";
+import Head from 'next/head'
 import Layout from "../../../components/Layout";
 import { BlogPost, BlogManifest } from "../../../types";
 
@@ -14,6 +15,13 @@ const Post: NextPage<Props> = ({ blogpost }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{attributes.title}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        {attributes.canonical && 
+          <link rel="canonical" href={attributes.canonical} />
+        }
+      </Head>
       <article>
         <h1>{attributes.title}</h1>
         <img src={attributes.thumbnail} />

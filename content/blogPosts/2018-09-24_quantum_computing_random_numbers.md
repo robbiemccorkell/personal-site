@@ -2,6 +2,7 @@
 title: "Programming a quantum computer: generating true random numbers"
 date: 2018-09-24T12:00:00.000Z
 thumbnail: /static/img/720px-ibm_q_computer.jpg
+canonical: "https://blog.red-badger.com/2018/9/24/generate-true-random-numbers-with-a-quantum-computer"
 ---
 
 Computers are deterministic, predictable machines and are designed to blindly follow sets of instructions in a repeatable manner. This nature of computers has of course served us extremely well through most of the last century, but this design comes with a fundamental flaw: it cannot perform random operations¹. Random number generators are an extremely important component of many applications today, but whilst the numbers they generate might be random enough, they are “pseudo” random and are often possible to predict or reverse engineer in some way.
@@ -106,7 +107,9 @@ The full code and a description on how to run it can be found on [GitHub](https:
 
 If you sign up for a free account with IBM Q Experience, get an API key and run this program like so:
 
-    python ./main.py -remote --qx-token <your-token> 15
+```
+python ./main.py -remote --qx-token <your-token> 15
+```
 
 you will find the process will take some time to run (approximately 10–20 minutes) and return a random integer between 0 and 16. Here is what happened while you were waiting:
 
