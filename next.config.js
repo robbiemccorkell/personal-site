@@ -1,45 +1,45 @@
 const fs = require("fs");
 const slugify = require("slugify");
 
-const blogPostsFolder = "./content/blogPosts";
-const blogPostsUrl = "/blog/posts"
+const withMDX = require("@next/mdx")({
+  extension: /\.mdx?$/
+});
 
-const blogManifest = fs.readdirSync(blogPostsFolder).reduce(
-  (acc, fileName) =>
-    Object.assign(acc, {
-      [slugify(fileName.split('.')[0])]: fileName
-    }),
-  {}
-);
+const blogPostsFolder = "./pages/blog/posts";
+const metaMatcher = /export\s+const\s+meta\s+=\s+(\{(\n|.)*?\n\})/;
 
-const blogPathMap = Object.keys(blogManifest).reduce(
-  (acc, slug) =>
-    Object.assign(acc, {
-      [`${blogPostsUrl}/${slug}`]: {
-        page: `${blogPostsUrl}/[slug]`,
-        query: {
-          slug
-        }
-      }
-    }),
-  {}
-);
+const removeFileExtension = fileName =>
+  fileName
+    .split(".")
+    .slice(0, -1)
+    .join(".");
 
-module.exports = {
-  webpack: configuration => {
-    configuration.module.rules.push({
-      test: /\.md$/,
-      use: "frontmatter-markdown-loader"
-    });
-    return configuration;
-  },
-  async exportPathMap(defaultPathMap) {
-    return {
-      ...defaultPathMap,
-      ...blogPathMap
-    };
-  },
+const getBlogMeta = fileName => {
+  const contents = fs.readFileSync(`${blogPostsFolder}/${fileName}`);
+  const match = metaMatcher.exec(contents);
+
+  if (!match || typeof match[1] !== "string")
+    throw new Error(
+      `${fileName} must provider metadata in the form: export const meta = {}`
+    );
+
+  const meta = eval(`(${match[1]})`);
+  return meta;
+};
+
+const blogManifest = fs
+  .readdirSync(blogPostsFolder)
+  .map(fileName => ({
+    fileName,
+    slug: removeFileExtension(fileName),
+    meta: getBlogMeta(fileName)
+  }))
+  .sort((a, b) => new Date(b.meta.date) - new Date(a.meta.date));
+
+module.exports = withMDX({
+  target: "server",
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   env: {
     blogManifest
-  },
-};
+  }
+});

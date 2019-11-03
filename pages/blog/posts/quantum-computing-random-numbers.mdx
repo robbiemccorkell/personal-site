@@ -1,9 +1,13 @@
----
-title: "Programming a quantum computer: generating true random numbers"
-date: 2018-09-24T12:00:00.000Z
-thumbnail: /static/img/720px-ibm_q_computer.jpg
-canonical: "https://blog.red-badger.com/2018/9/24/generate-true-random-numbers-with-a-quantum-computer"
----
+import BlogPost from "../../../components/BlogPost";
+
+export const meta = {
+  title: "Programming a quantum computer: generating true random numbers",
+  date: "2018-09-24T12:00:00.000Z",
+  thumbnail: "/static/img/720px-ibm_q_computer.jpg",
+  canonical: "https://blog.red-badger.com/2018/9/24/generate-true-random-numbers-with-a-quantum-computer"
+};
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
 Computers are deterministic, predictable machines and are designed to blindly follow sets of instructions in a repeatable manner. This nature of computers has of course served us extremely well through most of the last century, but this design comes with a fundamental flaw: it cannot perform random operations¹. Random number generators are an extremely important component of many applications today, but whilst the numbers they generate might be random enough, they are “pseudo” random and are often possible to predict or reverse engineer in some way.
 

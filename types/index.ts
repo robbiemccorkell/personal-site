@@ -1,12 +1,14 @@
-export interface BlogPost {
-  attributes: {
-    title?: string;
-    date?: string;
-    thumbnail?: string;
-    canonical?: string;
-  };
-  html: string;
-  slug: string;
+export interface BlogMeta {
+  title?: string;
+  date?: string;
+  thumbnail?: string;
+  canonical?: string;
 }
 
-export type BlogManifest = Record<string, string>;
+export interface BlogEntry {
+  fileName: string;
+  slug: string;
+  meta: BlogMeta;
+}
+
+export type BlogManifest = BlogEntry[];

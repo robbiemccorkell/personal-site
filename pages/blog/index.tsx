@@ -1,20 +1,20 @@
 import Link from "next/link";
 import Layout from "../../components/Layout";
-import { BlogPost, BlogManifest } from "../../types";
+import { BlogEntry, BlogManifest } from "../../types";
 import { NextPage } from "next";
 
 interface Props {
-  postsList: BlogPost[];
+  postsList: BlogEntry[];
 }
 
 const Blog: NextPage<Props> = ({ postsList }) => (
   <Layout>
-    {postsList.map((post: any) => (
+    {postsList.map(post => (
       <div key={post.slug} className="post">
-        <Link href="/blog/posts/[slug]" as={`/blog/posts/${post.slug}`}>
+        <Link href={`/blog/posts/${post.slug}`}>
           <a>
-            <img src={post.attributes.thumbnail} />
-            <h2>{post.attributes.title}</h2>
+            <img src={post.meta.thumbnail} />
+            <h2>{post.meta.title}</h2>
           </a>
         </Link>
       </div>
@@ -33,14 +33,8 @@ const Blog: NextPage<Props> = ({ postsList }) => (
 
 Blog.getInitialProps = async () => {
   const blogManifest = (process.env.blogManifest || {}) as BlogManifest;
-  const postsList = await Promise.all(
-    Object.entries(blogManifest).map(async ([slug, fileName]) => {
-      const markdown = await import(`../../content/blogPosts/${fileName}`);
-      return { ...markdown, slug };
-    })
-  );
 
-  return { postsList };
+  return { postsList: blogManifest };
 };
 
 export default Blog;
