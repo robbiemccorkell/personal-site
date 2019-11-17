@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mapbox/rehype-prism": "^0.3.1",
     "@mdx-js/loader": "^1.5.1",
     "@next/mdx": "^9.1.2",
     "isomorphic-unfetch": "^3.0.0",

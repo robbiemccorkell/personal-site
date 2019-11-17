@@ -12,6 +12,7 @@ const BlogPost: React.FunctionComponent<Props> = ({ children, meta }) => (
       <title>{meta.title}</title>
       {meta.canonical && <link rel="canonical" href={meta.canonical} />}
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" />
+      <link href="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/themes/prism-okaidia.css" rel="stylesheet" />
     </Head>
     <h1>{meta.title}</h1>
     <img src={meta.thumbnail} />
