@@ -12,6 +12,8 @@ const BlogPost: React.FunctionComponent<Props> = ({ children, meta }) => (
       <title>{meta.title}</title>
       {meta.canonical && <link rel="canonical" href={meta.canonical} />}
     </Head>
+    <h1>{meta.title}</h1>
+    <img src={meta.thumbnail} />
     {children}
   </Layout>
 );
