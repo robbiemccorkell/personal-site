@@ -13,7 +13,7 @@ const Blog: NextPage<Props> = ({ postsList }) => (
       <div key={post.slug} className="post">
         <Link href={`/blog/posts/${post.slug}`}>
           <a>
-            <img src={post.meta.thumbnail} />
+            {post.meta.thumbnail && <img src={require(`../../public/static/img/${post.meta.thumbnail}?size=200`)} />}
             <h2>{post.meta.title}</h2>
           </a>
         </Link>

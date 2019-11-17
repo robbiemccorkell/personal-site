@@ -15,7 +15,7 @@ const BlogPost: React.FunctionComponent<Props> = ({ children, meta }) => (
       <link href="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/themes/prism-okaidia.css" rel="stylesheet" />
     </Head>
     <h1>{meta.title}</h1>
-    <img src={meta.thumbnail} />
+    {meta.thumbnail && <img src={require(`../public/static/img/${meta.thumbnail}?size=800`)} />}
     {children}
   </Layout>
 );
