@@ -3,12 +3,21 @@ import Header from './Header';
 const Layout: React.FunctionComponent = props => (
   <div>
     <Header />
-    {props.children}
+    <div className="layout-wrapper">
+      {props.children}
+    </div>
     <style jsx>{`
-      div {
-        margin: 20,
-        padding: 20,
-        border: 1px solid #DDD
+      .layout-wrapper {
+        max-width: 675px;
+        margin: 0px auto;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    `}</style>
+    <style jsx global>{`
+      * {
+        box-sizing: border-box;
+        font-family: -apple-system, Helvetica, Arial, sans-serif;
       }
     `}</style>
   </div>
