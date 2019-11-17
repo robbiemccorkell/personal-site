@@ -21,7 +21,21 @@ Let’s take the random number generator provided by Javascript as an example. F
 
 Here is a general version of this algorithm written in C[²](#ref-2):
 
-<script src="https://gist.github.com/robbiemccorkell/872f6deb60182fb71cac0f7a44fa1334.js"></script>
+```c
+uint64_t state0 = 1;
+uint64_t state1 = 2;
+uint64_t xorshift128plus() {
+  uint64_t s1 = state0;
+  uint64_t s0 = state1;
+  state0 = s0;
+  s1 ^= s1 << 23;
+  s1 ^= s1 >> 17;
+  s1 ^= s0;
+  s1 ^= s0 >> 26;
+  state1 = s1;
+  return state0 + state1;
+}
+```
 
 The purpose of this code is to take some input (the seed) and scramble it to such a degree that any two outputs from the two separate inputs will seem completely different to each other and therefore random. The algorithm achieves this by shifting the seed’s binary representations up and down and reversing the bit representations in between steps, resulting in a bit representation of a number completely different from the seed input.
 
@@ -71,7 +85,22 @@ To build our random number generator we will use the provided SDK for IBM Q Expe
 
 First let’s start with the basic code to complete the four steps above:
 
-<script src="https://gist.github.com/robbiemccorkell/664e023582d93bec057fa5ae43a837e9.js"></script>
+```python
+from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, execute
+
+q = QuantumRegister(1)
+c = ClassicalRegister(1)
+qc = QuantumCircuit(q, c)
+
+qc.h(q[0])
+qc.measure(q, c)
+
+job_sim = execute(qc, "local_qasm_simulator", shots=1)
+sim_result = job_sim.result()
+counts = sim_result.get_counts(qc)
+
+print(counts)
+```
 
 Here we create a quantum circuit from two single bit registers, one quantum register with a single qubit and a similar sized classical register for interacting with the quantum register. We then apply a Hadamard gate to our single qubit to force it into a superposition state, and measure that state on to our classical register. Finally we execute the process we just described on a local simulated processor, telling the SDK to only run the process once. For most other purposes, we would want to run a quantum circuit multiple times and average out the results to eliminate the inherent randomness in the system, but for our purposes just a single run will work perfectly. We can print out the counts of our results, which will display as a map of possible bit values to the number of times they were measured for each run e.g: { “0”: 1, “1”: 0 }. You will find that once this program is run on a quantum processor, the measurement of a 0 or 1 value will occur with 50% probability.
 
@@ -83,27 +112,138 @@ If we are going to allow input from a user to choose a range for generating our 
 
 Which we can represent in python as the function:
 
-<script src="https://gist.github.com/robbiemccorkell/1f6d985efeeb06a92888d1d1b513aecc.js"></script>
+```python
+import math
+
+def num_bits(n):
+  return math.floor(math.log(n, 2)) + 1
+```
 
 Using this we can write a function that generates a random number to a given maximum by repeating the quantum circuit above for each bit that we require:
 
-<script src="https://gist.github.com/robbiemccorkell/0219c43114f2d976dac8579110c7b989.js"></script>
+```python
+def random_int(max):
+  bits = ''
+  for x in range(num_bits(max)):
+    q = QuantumRegister(1)
+    c = ClassicalRegister(1)
+    qc = QuantumCircuit(q, c)
+
+    qc.h(q[0])
+    qc.measure(q, c)
+
+    job_sim = execute(qc, "local_qasm_simulator", shots=1)
+    sim_result = job_sim.result()
+    counts = sim_result.get_counts(qc)
+
+    bits += bit_from_counts(counts)
+  return int(bits, 2)
+```
 
 This code is the core of our quantum random number generator. We calculate the number of bits required to generate a number up to the given maximum, and for each required bit we generate a random value using Qiskit and add it on to a string of generated bits. We then parse this string as a base 10 integer from base 2.
 
 However there is a crucial problem with this code; if you run it enough times you will realise it actually generates numbers up to a maximum of the next nearest power of two to the input. This is because we have calculated how many bits are required to represent a given number, but if all these bits have the value 1, then our number could easily be higher than the given maximum. It’s surprisingly difficult to solve this problem, and the best way to keep the number below our maximum without introducing some other statistical bias is using rejection sampling[¹³](#ref-13). We would simply need to generate a number, and if it was too large reject that number and run the process again. Since we have limited resources on a free account with IBM Q Experience, we will keep our code simple and just restrict the users’ input to powers of two by rounding up the input to the next highest power:
 
-<script src="https://gist.github.com/robbiemccorkell/7dc534bc7f68bafd3bc6d80b0d673c15.js"></script>
+```python
+def next_power_of_2(n):
+  return int(math.pow(2, math.ceil(math.log(n, 2))))
+```
 
 We can also quite easily parse command line input from a user to take in a desired maximum, as well as a flag to tell the program whether to run on a real quantum computer and an option to pass an API key for IBM Q Experience:
 
-<script src="https://gist.github.com/robbiemccorkell/873065c9a1d2e4045472561f597dbca0.js"></script>
+```python
+def parse_input():
+  parser = argparse.ArgumentParser()
+  parser.add_argument('max', metavar='n', type=int, nargs='?', default=16, help='a maximum integer to generate')
+  parser.add_argument('--remote', action='store_true', default=False, help='run command on real remote quantum processor')
+  parser.add_argument('--qx-token', nargs='?', help='api token for IBM Q Experience remote backend')
+  args = parser.parse_args()
+
+  if args.remote and args.qx_token is None:
+    parser.error("--remote requires --qx-token")
+
+  next_power = next_power_of_2(args.max)
+  if (next_power > args.max):
+    print(f"Rounding input {args.max} to next power of 2: {next_power}")
+    args.max = next_power
+
+  return args
+```
 
 Finally, before we can run our code on a real quantum processor, it would be best to optimise our solution to loop a minimal number of times to save on free resources on our cloud quantum processor. As an example, if we were to use the 5 qubit processor “IBM Q5 Tenerife” (backend name ibmqx4), we could utilise all 5 qubits by passing all of them through Hadamard gates and combining their values when measured. This would allow us to generate a random number up to 31 with a single loop, and IBM Q Experience provides enough credits for 3 instructions allowing us to generate a number up to 32767 in a single run.
 
 With all of these elements combined, our final code becomes:
 
-<script src="https://gist.github.com/robbiemccorkell/5eabd5ac8e78e738b3bbf993865b9f8b.js"></script>
+```python
+import math, argparse, warnings
+from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, execute, register
+
+warnings.filterwarnings("ignore")
+
+MAX_QUBITS = 5
+QX_URL = "https://quantumexperience.ng.bluemix.net/api"
+
+def parse_input():
+  parser = argparse.ArgumentParser()
+  parser.add_argument('max', metavar='n', type=int, nargs='?', default=16, help='a maximum integer to generate')
+  parser.add_argument('--remote', action='store_true', default=False, help='run command on real remote quantum processor')
+  parser.add_argument('--qx-token', nargs='?', help='api token for IBM Q Experience remote backend')
+  args = parser.parse_args()
+
+  if args.remote and args.qx_token is None:
+    parser.error("--remote requires --qx-token")
+
+  next_power = next_power_of_2(args.max)
+  if (next_power > args.max):
+    print(f"Rounding input {args.max} to next power of 2: {next_power}")
+    args.max = next_power
+
+  return args
+
+def next_power_of_2(n):
+  return int(math.pow(2, math.ceil(math.log(n, 2))))
+
+def bit_from_counts(counts):
+    return [k for k, v in counts.items() if v == 1][0]
+
+def num_bits(n):
+  return math.floor(math.log(n, 2)) + 1
+
+def get_register_sizes(n, max_qubits):
+  register_sizes = [max_qubits for i in range(int(n / max_qubits))]
+  remainder = n % max_qubits
+  return register_sizes if remainder == 0 else register_sizes + [remainder]
+
+def random_int(max, remote=False):
+  bits = ''
+  n_bits = num_bits(max - 1)
+  register_sizes = get_register_sizes(n_bits, MAX_QUBITS)
+  backend = "ibmqx4" if remote else "local_qasm_simulator"
+
+  for x in register_sizes:
+    q = QuantumRegister(x)
+    c = ClassicalRegister(x)
+    qc = QuantumCircuit(q, c)
+
+    qc.h(q)
+    qc.measure(q, c)
+
+    job_sim = execute(qc, backend, shots=1)
+    sim_result = job_sim.result()
+    counts = sim_result.get_counts(qc)
+
+    bits += bit_from_counts(counts)
+  return int(bits, 2)
+
+input = parse_input()
+
+if input.remote:
+  register(input.qx_token, QX_URL)
+
+result = random_int(input.max, input.remote)
+
+print(result)
+```
 
 The full code and a description on how to run it can be found on [GitHub](https://github.com/robbiemccorkell/quantum-random-number).
 
