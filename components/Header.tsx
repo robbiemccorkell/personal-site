@@ -5,6 +5,9 @@ const Header: React.FunctionComponent = () => (
     <Link href="/">
       <a>Home</a>
     </Link>
+    <Link href="/blog">
+      <a>Blog</a>
+    </Link>
     <style jsx>{`
       a {
         marginRight: 15;
