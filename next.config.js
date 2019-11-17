@@ -1,8 +1,14 @@
 const fs = require("fs");
 const slugify = require("slugify");
+const remarkMath = require("remark-math");
+const rehypeKatex = require("rehype-katex");
 
 const withMDX = require("@next/mdx")({
-  extension: /\.mdx?$/
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex]
+  }
 });
 
 const blogPostsFolder = "./pages/blog/posts";

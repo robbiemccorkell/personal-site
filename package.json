@@ -18,7 +18,9 @@
     "next": "^9.1.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-markdown": "^4.2.2"
+    "react-markdown": "^4.2.2",
+    "rehype-katex": "^2.0.0",
+    "remark-math": "^2.0.0"
   },
   "devDependencies": {
     "@mdx-js/loader": "^1.5.1",

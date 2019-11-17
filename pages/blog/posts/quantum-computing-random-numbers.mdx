@@ -106,11 +106,7 @@ Here we create a quantum circuit from two single bit registers, one quantum regi
 
 This code has given us the equivalent of a perfect coin toss, so now all we need to do is find a way to take a series of binary coin tosses and convert them to a random number in a given range. An easy way to do this is to take the random bit values we generate with the code above and put them together in sequence to create a binary number. When we convert this binary number to decimal we will find that it will be a random decimal every time.
 
-If we are going to allow input from a user to choose a range for generating our number, we will need to figure out how many bits are required to represent a given base 10 integer so we know how many random bits to generate. The equation we need to do this is[¹²](#ref-12):
-
-![](https://cdn-images-1.medium.com/max/2000/0*amqBaZaNPWYjyKA1)
-
-Which we can represent in python as the function:
+If we are going to allow input from a user to choose a range for generating our number, we will need to figure out how many bits are required to represent a given base 10 integer so we know how many random bits to generate. The equation we need to do this is $b_{spec} = \left \lfloor log_2(n) \right \rfloor + 1$[¹²](#ref-12), which we can represent in python as the function:
 
 ```python
 import math
