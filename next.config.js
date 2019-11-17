@@ -2,7 +2,9 @@ const fs = require("fs");
 const slugify = require("slugify");
 const remarkMath = require("remark-math");
 const rehypeKatex = require("rehype-katex");
-const rehypePrism = require('@mapbox/rehype-prism')
+const rehypePrism = require("@mapbox/rehype-prism");
+const withPlugins = require("next-compose-plugins");
+const optimizedImages = require("next-optimized-images");
 
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
@@ -43,10 +45,21 @@ const blogManifest = fs
   }))
   .sort((a, b) => new Date(b.meta.date) - new Date(a.meta.date));
 
-module.exports = withMDX({
-  target: "server",
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-  env: {
-    blogManifest
+module.exports = withPlugins(
+  [
+    [
+      optimizedImages,
+      {
+        imagesFolder: "img"
+      }
+    ],
+    withMDX
+  ],
+  {
+    target: "server",
+    pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+    env: {
+      blogManifest
+    }
   }
-});
+);
