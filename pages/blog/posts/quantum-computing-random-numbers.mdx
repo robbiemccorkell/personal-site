@@ -9,7 +9,7 @@ export const meta = {
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
 
-Computers are deterministic, predictable machines and are designed to blindly follow sets of instructions in a repeatable manner. This nature of computers has of course served us extremely well through most of the last century, but this design comes with a fundamental flaw: it cannot perform random operations[¹](#ref-1). Random number generators are an extremely important component of many applications today, but whilst the numbers they generate might be random enough, they are “pseudo” random and are often possible to predict or reverse engineer in some way.
+Computers are deterministic, predictable machines and are designed to blindly follow sets of instructions in a repeatable manner. This nature of computers has of course served us extremely well through most of the last century, but this design comes with a fundamental flaw: it cannot perform random operations[^1]. Random number generators are an extremely important component of many applications today, but whilst the numbers they generate might be random enough, they are “pseudo” random and are often possible to predict or reverse engineer in some way.
 
 Today it is possible to harness the strange, unpredictable nature of subatomic particles and use them to perform calculations inside a quantum computer. With just a few lines of code we can program a real quantum computer to generate true random numbers for us. Something previously impossible using a classical, Turing based computer.
 
@@ -19,7 +19,7 @@ Most popular programming languages have some form of random number generator bui
 
 Let’s take the random number generator provided by Javascript as an example. First of all, since Javascript is a language interpreted in different environments (browser or node.js), it’s up to the interpreter to decide on what algorithms to use that conform to the ECMAScript spec. Today, most modern browsers use the same randomness algorithm to power Javascript’s Math.random() function called xorshift128+.
 
-Here is a general version of this algorithm written in C[²](#ref-2):
+Here is a general version of this algorithm written in C[^2]:
 
 ```c
 uint64_t state0 = 1;
@@ -39,9 +39,9 @@ uint64_t xorshift128plus() {
 
 The purpose of this code is to take some input (the seed) and scramble it to such a degree that any two outputs from the two separate inputs will seem completely different to each other and therefore random. The algorithm achieves this by shifting the seed’s binary representations up and down and reversing the bit representations in between steps, resulting in a bit representation of a number completely different from the seed input.
 
-In order for this function to provide different results each time it is run, we need an always changing seed. Browsers (and other programming languages) often simply use a numerical representation of the current date and time[³](#ref-3), for example the UNIX epoch time, the number of milliseconds that have elapsed since 1 January 1970[⁴](#ref-4).
+In order for this function to provide different results each time it is run, we need an always changing seed. Browsers (and other programming languages) often simply use a numerical representation of the current date and time[^3], for example the UNIX epoch time, the number of milliseconds that have elapsed since 1 January 1970[^4].
 
-With this seed, and the high entropy algorithm above, we can achieve a very convincing random number generator. Computer systems use these functions all the time without issue, but we cannot call it a truly random number generator. If somebody knows how the random number generator works, and can predict the input seed, they can also predict the output of the function. One way to improve the randomness of this system is by making the seed harder to predict. For example, many systems use the cosmic microwave background radiation (the electromagnetic radio waves still left over by the big bang) as a seed[⁵](#ref-5) since nobody can predict how this background noise will behave at any given point in time.
+With this seed, and the high entropy algorithm above, we can achieve a very convincing random number generator. Computer systems use these functions all the time without issue, but we cannot call it a truly random number generator. If somebody knows how the random number generator works, and can predict the input seed, they can also predict the output of the function. One way to improve the randomness of this system is by making the seed harder to predict. For example, many systems use the cosmic microwave background radiation (the electromagnetic radio waves still left over by the big bang) as a seed[^5] since nobody can predict how this background noise will behave at any given point in time.
 
 A randomness system using an unpredictable seed like the microwave background is at this point totally random by today’s knowledge. Nobody currently can predict how this seed will behave at any given point in time, and so cannot predict the random number it generates. This type of seed may even be impossible for us to predict in the future, but if we have the same measurement of the cosmic microwave background as somebody else and use it as an input to the random number generator we will be able to predict their result.
 
@@ -49,21 +49,21 @@ To generate a truly random number we need to find something in nature that we ca
 
 ## Probability in the quantum world
 
-Quantum mechanics is a theory which describes the nature of particles on the subatomic scale. It says that as we observe the world at a smaller and smaller scale, classical descriptions of particles and forces like those defined by Sir Isaac Newton in the 18th century become less accurate and we must switch to different quantum descriptions driven by statistics and probability. For example the exact position of an electron around an atom cannot be predicted, we can only predict the probability of finding an electron in a given area around the atom at a given time[⁶](#ref-6).
+Quantum mechanics is a theory which describes the nature of particles on the subatomic scale. It says that as we observe the world at a smaller and smaller scale, classical descriptions of particles and forces like those defined by Sir Isaac Newton in the 18th century become less accurate and we must switch to different quantum descriptions driven by statistics and probability. For example the exact position of an electron around an atom cannot be predicted, we can only predict the probability of finding an electron in a given area around the atom at a given time[^6].
 
-To make things even stranger, the Copenhagen Interpretation of quantum mechanics devised by Niels Bohr and Werner Heisenberg states that quantum systems do not have definite properties prior to being measured, but exist in all possible states simultaneously in a principle known as superposition. It is only when the system is observed that the superposition collapses and the system exists in a single definite state. This is known as the observer effect. Taking the example of the position of an electron, we can predict a probability that an electron will be present in a particular location at a particular time, but before that measurement the electron exists in all possible positions around the atom. During the measurement the electron will reveal itself to be in one place, but by observing and measuring the electron we have altered its state and cannot determine other properties like momentum due to the uncertainty principle[⁷](#ref-7).
+To make things even stranger, the Copenhagen Interpretation of quantum mechanics devised by Niels Bohr and Werner Heisenberg states that quantum systems do not have definite properties prior to being measured, but exist in all possible states simultaneously in a principle known as superposition. It is only when the system is observed that the superposition collapses and the system exists in a single definite state. This is known as the observer effect. Taking the example of the position of an electron, we can predict a probability that an electron will be present in a particular location at a particular time, but before that measurement the electron exists in all possible positions around the atom. During the measurement the electron will reveal itself to be in one place, but by observing and measuring the electron we have altered its state and cannot determine other properties like momentum due to the uncertainty principle[^7].
 
-This interpretation of the quantum world understandably shook the physics community at the time, and is debated to this day. Einstein refused to believe that reality is governed by probability and famously said “I, at any rate, am convinced that He (God) does not throw dice” and “Do you really think the moon isn’t there if you aren’t looking at it?”. In response, Niles Bohr later responded “Einstein, don’t tell God what to do.”[⁸](#ref-8)
+This interpretation of the quantum world understandably shook the physics community at the time, and is debated to this day. Einstein refused to believe that reality is governed by probability and famously said “I, at any rate, am convinced that He (God) does not throw dice” and “Do you really think the moon isn’t there if you aren’t looking at it?”. In response, Niles Bohr later responded “Einstein, don’t tell God what to do.”[^8]
 
 Like it or not, Quantum theory remains our best understanding of the subatomic world and has been developed into the heart of an all new type information processor. Quantum computers rely on the ability for quantum particles to exist in a superposition of multiple states at once to perform calculations. Since quantum computers can manipulate the superpositions of particles which are governed by probability, we can use them as a tool to harness the nature of the quantum world and build a true random number generator.
 
 ## Qubits and quantum gates
 
-Classical computers use binary digits, or bits, to represent information. A bit can take the values 0 or 1 and are represented by one of two levels of DC voltage inside a computer processor. Quantum computers usually represent information the same way, using a 0 or 1 bit, but they physically implement these states using binary properties of subatomic particles. These properties might be the spin of an electron (spin up and spin down) or the polarisation of a photon (horizontal and vertical polarisation). Either of these representations can be described by quantum mechanics, and can be in a superposition of both states at once[⁹](#ref-9). This means that a quantum bit of information, or qubit, can exist in a superposition of both states 0 and 1 at the same time. To measure the result of a computation, we must measure the quantum state inside the computer and force these particles to choose a 0 or 1 state.
+Classical computers use binary digits, or bits, to represent information. A bit can take the values 0 or 1 and are represented by one of two levels of DC voltage inside a computer processor. Quantum computers usually represent information the same way, using a 0 or 1 bit, but they physically implement these states using binary properties of subatomic particles. These properties might be the spin of an electron (spin up and spin down) or the polarisation of a photon (horizontal and vertical polarisation). Either of these representations can be described by quantum mechanics, and can be in a superposition of both states at once[^9]. This means that a quantum bit of information, or qubit, can exist in a superposition of both states 0 and 1 at the same time. To measure the result of a computation, we must measure the quantum state inside the computer and force these particles to choose a 0 or 1 state.
 
-To manipulate qubits in a quantum computer we use quantum gates much like the gates of a classical circuit. Whilst a classical computer can perform operations on bits such as flipping them to their opposite value, quantum gates can do these operations and more advanced quantum operations such as pushing a qubit into a superposition of both possible values. A gate that pushes a qubit into a superposition is called a Hadamard gate and is one of the most fundamental and commonly used logic gates in quantum computing[¹⁰](#ref-10).
+To manipulate qubits in a quantum computer we use quantum gates much like the gates of a classical circuit. Whilst a classical computer can perform operations on bits such as flipping them to their opposite value, quantum gates can do these operations and more advanced quantum operations such as pushing a qubit into a superposition of both possible values. A gate that pushes a qubit into a superposition is called a Hadamard gate and is one of the most fundamental and commonly used logic gates in quantum computing[^10].
 
-When we push the spin of an electron into a superposition of both possible spin up and down states representing the values 1 and 0 of a qubit, the electron can be said to have a simultaneous spin of both values, and the qubit is in a superposition of 0 and 1. When measuring this qubit, we collapse the superposition and force it into one of these two possible states, each with an equal probability of occurring[¹¹](#ref-11). With each superposition and measurement we have a 50% chance of measuring either 1 or 0. We would then have performed the equivalent of a coin flip using the fundamental laws of the subatomic world.
+When we push the spin of an electron into a superposition of both possible spin up and down states representing the values 1 and 0 of a qubit, the electron can be said to have a simultaneous spin of both values, and the qubit is in a superposition of 0 and 1. When measuring this qubit, we collapse the superposition and force it into one of these two possible states, each with an equal probability of occurring[^11]. With each superposition and measurement we have a 50% chance of measuring either 1 or 0. We would then have performed the equivalent of a coin flip using the fundamental laws of the subatomic world.
 
 In order to generate our random number from a quantum coin toss all we need to do is:
 
@@ -106,7 +106,7 @@ Here we create a quantum circuit from two single bit registers, one quantum regi
 
 This code has given us the equivalent of a perfect coin toss, so now all we need to do is find a way to take a series of binary coin tosses and convert them to a random number in a given range. An easy way to do this is to take the random bit values we generate with the code above and put them together in sequence to create a binary number. When we convert this binary number to decimal we will find that it will be a random decimal every time.
 
-If we are going to allow input from a user to choose a range for generating our number, we will need to figure out how many bits are required to represent a given base 10 integer so we know how many random bits to generate. The equation we need to do this is $b_{spec} = \left \lfloor log_2(n) \right \rfloor + 1$[¹²](#ref-12), which we can represent in python as the function:
+If we are going to allow input from a user to choose a range for generating our number, we will need to figure out how many bits are required to represent a given base 10 integer so we know how many random bits to generate. The equation we need to do this is $b_{spec} = \left \lfloor log_2(n) \right \rfloor + 1$[^12], which we can represent in python as the function:
 
 ```python
 import math
@@ -138,7 +138,7 @@ def random_int(max):
 
 This code is the core of our quantum random number generator. We calculate the number of bits required to generate a number up to the given maximum, and for each required bit we generate a random value using Qiskit and add it on to a string of generated bits. We then parse this string as a base 10 integer from base 2.
 
-However there is a crucial problem with this code; if you run it enough times you will realise it actually generates numbers up to a maximum of the next nearest power of two to the input. This is because we have calculated how many bits are required to represent a given number, but if all these bits have the value 1, then our number could easily be higher than the given maximum. It’s surprisingly difficult to solve this problem, and the best way to keep the number below our maximum without introducing some other statistical bias is using rejection sampling[¹³](#ref-13). We would simply need to generate a number, and if it was too large reject that number and run the process again. Since we have limited resources on a free account with IBM Q Experience, we will keep our code simple and just restrict the users’ input to powers of two by rounding up the input to the next highest power:
+However there is a crucial problem with this code; if you run it enough times you will realise it actually generates numbers up to a maximum of the next nearest power of two to the input. This is because we have calculated how many bits are required to represent a given number, but if all these bits have the value 1, then our number could easily be higher than the given maximum. It’s surprisingly difficult to solve this problem, and the best way to keep the number below our maximum without introducing some other statistical bias is using rejection sampling[^13]. We would simply need to generate a number, and if it was too large reject that number and run the process again. Since we have limited resources on a free account with IBM Q Experience, we will keep our code simple and just restrict the users’ input to powers of two by rounding up the input to the next highest power:
 
 ```python
 def next_power_of_2(n):
@@ -275,31 +275,31 @@ Know of some interesting practical applications for cloud quantum computing? Let
 
 References:
 
-1. [Jason M. Rubin, MIT School of Engineering (2011), Can a computer generate a truly random number?](https://engineering.mit.edu/engage/ask-an-engineer/can-a-computer-generate-a-truly-random-number/) <a name="ref-1" />
+[^1]: [Jason M. Rubin, MIT School of Engineering (2011), Can a computer generate a truly random number?](https://engineering.mit.edu/engage/ask-an-engineer/can-a-computer-generate-a-truly-random-number/) <a name="ref-1" />
 
-1. [Daniel Simmons, Hackernoon (2014), How does JavaScript’s Math.random() generate random numbers?](https://hackernoon.com/how-does-javascripts-math-random-generate-random-numbers-ef0de6a20131) <a name="ref-2" />
+[^2]: [Daniel Simmons, Hackernoon (2014), How does JavaScript’s Math.random() generate random numbers?](https://hackernoon.com/how-does-javascripts-math-random-generate-random-numbers-ef0de6a20131) <a name="ref-2" />
 
-1. [Adam Hyland, bocoup (2013), Random number generation in Javascript](https://bocoup.com/blog/random-numbers) <a name="ref-3" />
+[^3]: [Adam Hyland, bocoup (2013), Random number generation in Javascript](https://bocoup.com/blog/random-numbers) <a name="ref-3" />
 
-1. [The Open Group Base Specifications Issue 7 (2018), 4.16: Seconds Since the Epoch](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_16) <a name="ref-4" />
+[^4]: [The Open Group Base Specifications Issue 7 (2018), 4.16: Seconds Since the Epoch](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_16) <a name="ref-4" />
 
-1. [Jeffrey S. Lee, Gerald B. Cleaver, Cornell University Library (2015), The Cosmic Microwave Background Radiation Power Spectrum as a Random Bit Generator for Symmetric and Asymmetric-Key Cryptography](https://arxiv.org/abs/1511.02511) <a name="ref-5" />
+[^5]: [Jeffrey S. Lee, Gerald B. Cleaver, Cornell University Library (2015), The Cosmic Microwave Background Radiation Power Spectrum as a Random Bit Generator for Symmetric and Asymmetric-Key Cryptography](https://arxiv.org/abs/1511.02511) <a name="ref-5" />
 
-1. Tony Hey, Patrick Walters, Cambridge University Press (1987), The Quantum Universe <a name="ref-6" />
+[^6]: Tony Hey, Patrick Walters, Cambridge University Press (1987), The Quantum Universe <a name="ref-6" />
 
-1. Alastair I. M. Rae, Taylor & Francis Group (2008), Quantum Mechanics (5th Ed) <a name="ref-7" />
+[^7]: Alastair I. M. Rae, Taylor & Francis Group (2008), Quantum Mechanics (5th Ed) <a name="ref-7" />
 
-1. [Wikipedia (2018), Copenhagen interpretation](https://en.wikipedia.org/wiki/Copenhagen_interpretation#cite_note-56) <a name="ref-8" />
+[^8]: [Wikipedia (2018), Copenhagen interpretation](https://en.wikipedia.org/wiki/Copenhagen_interpretation#cite_note-56) <a name="ref-8" />
 
-1. Eleanor Riefffel, Wolfgang Polak, Massachusetts Institute of Technology (2011), Quantum Computing: A Gentle Introduction <a name="ref-9" />
+[^9]: Eleanor Riefffel, Wolfgang Polak, Massachusetts Institute of Technology (2011), Quantum Computing: A Gentle Introduction <a name="ref-9" />
 
-1. [Artur Ekert, Patrick Hayden, Hitoshi Inamori, University of Oxford (2008), Basic concepts in quantum computation](https://arxiv.org/pdf/quant-ph/0011013.pdf) <a name="ref-10" />
+[^10]: [Artur Ekert, Patrick Hayden, Hitoshi Inamori, University of Oxford (2008), Basic concepts in quantum computation](https://arxiv.org/pdf/quant-ph/0011013.pdf) <a name="ref-10" />
 
-1. [Daniel Baumann, University of Cambridge (2013), Concepts in Theoretical Physics](http://www.damtp.cam.ac.uk/user/db275/concepts/Concepts.pdf) <a name="ref-11" />
+[^11]: [Daniel Baumann, University of Cambridge (2013), Concepts in Theoretical Physics](http://www.damtp.cam.ac.uk/user/db275/concepts/Concepts.pdf) <a name="ref-11" />
 
-1. [Rick Regan, Exploring Binary (2012), Number of Bits in a Decimal Integer](https://www.exploringbinary.com/number-of-bits-in-a-decimal-integer/) <a name="ref-12" />
+[^12]: [Rick Regan, Exploring Binary (2012), Number of Bits in a Decimal Integer](https://www.exploringbinary.com/number-of-bits-in-a-decimal-integer/) <a name="ref-12" />
 
-1. [Dimitri DeFigueiredo Ph.D (2017), Generating random integers from random bytes](http://dimitri.xyz/random-ints-from-random-bits/) <a name="ref-13" />
+[^13]: [Dimitri DeFigueiredo Ph.D (2017), Generating random integers from random bytes](http://dimitri.xyz/random-ints-from-random-bits/) <a name="ref-13" />
 
 *Edit: Thanks to [Bob Sutor](https://twitter.com/snarky_android/status/1063793403593465856) for pointing out that the *IBM Q 5 Tenerife quantum computer is only related to Tenerife by name, not location, and is situated in New York.
 
