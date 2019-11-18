@@ -10,8 +10,7 @@ const Layout: React.FunctionComponent = props => (
       .layout-wrapper {
         max-width: 675px;
         margin: 0px auto;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding: 32px 15px;
       }
     `}</style>
     <style jsx global>{`

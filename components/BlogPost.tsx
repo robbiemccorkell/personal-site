@@ -28,7 +28,7 @@ const BlogPost: React.FunctionComponent<Props> = ({ children, meta }) => (
       />
     </Head>
 
-    <h1>{meta.title}</h1>
+    <h2>{meta.title}</h2>
     {meta.date && (
       <p className="published-date">
         Published {format(parseISO(meta.date), "do MMMM yyyy")}
@@ -40,7 +40,7 @@ const BlogPost: React.FunctionComponent<Props> = ({ children, meta }) => (
     <MDXProvider components={mdComponents}>{children}</MDXProvider>
     <style jsx>{`
       .published-date {
-        color: rgb(153, 153, 153);
+        color: #999999;
       }
     `}</style>
   </Layout>
