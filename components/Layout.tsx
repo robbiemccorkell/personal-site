@@ -1,14 +1,25 @@
 import Header from './Header';
 
 const Layout: React.FunctionComponent = props => (
-  <div>
+  <div className="outer">
     <Header />
-    {props.children}
+    <div className="inner">
+      {props.children}
+    </div>
     <style jsx>{`
-      div {
-        margin: 20,
-        padding: 20,
-        border: 1px solid #DDD
+      .outer {
+        min-width: 320px;
+      }
+      .inner {
+        max-width: 675px;
+        margin: 0px auto;
+        padding: 32px 15px;
+      }
+    `}</style>
+    <style jsx global>{`
+      * {
+        box-sizing: border-box;
+        font-family: -apple-system, Helvetica, Arial, sans-serif;
       }
     `}</style>
   </div>
