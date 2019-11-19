@@ -1,13 +1,16 @@
 import Header from './Header';
 
 const Layout: React.FunctionComponent = props => (
-  <div>
+  <div className="outer">
     <Header />
-    <div className="layout-wrapper">
+    <div className="inner">
       {props.children}
     </div>
     <style jsx>{`
-      .layout-wrapper {
+      .outer {
+        min-width: 320px;
+      }
+      .inner {
         max-width: 675px;
         margin: 0px auto;
         padding: 32px 15px;

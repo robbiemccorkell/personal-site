@@ -42,6 +42,10 @@ const BlogPost: React.FunctionComponent<Props> = ({ children, meta }) => (
       .published-date {
         color: #999999;
       }
+
+      :global(img) {
+        max-width: 100%;
+      }
     `}</style>
   </Layout>
 );

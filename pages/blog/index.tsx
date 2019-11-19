@@ -14,7 +14,7 @@ const Blog: NextPage<Props> = ({ postsList }) => (
       <div key={post.slug} className="post">
         <Link href={`/blog/posts/${post.slug}`}>
           <a className="link">
-            <div>
+            <div className="title-wrapper">
               <h2 className="title">{post.meta.title}</h2>
               {post.meta.date && (
                 <div className="date">{format(parseISO(post.meta.date), "do MMMM yyyy")}</div>
@@ -23,7 +23,7 @@ const Blog: NextPage<Props> = ({ postsList }) => (
             {post.meta.thumbnail && (
               <img
                 className="thumbnail"
-                src={require(`../../public/static/img/${post.meta.thumbnail}?size=200`)}
+                src={require(`../../public/static/img/${post.meta.thumbnail}?size=400`)}
               />
             )}
           </a>
@@ -33,11 +33,14 @@ const Blog: NextPage<Props> = ({ postsList }) => (
     <style jsx>{`
       .link {
         display: flex;
+        flex-flow: column;
         text-decoration: none;
         color: #000;
       }
+      .title-wrapper {
+        padding-bottom: 16px;
+      }
       .title {
-        padding-right: 16px;
         font-size: 20px;
       }
       .link:hover .title {
@@ -52,12 +55,30 @@ const Blog: NextPage<Props> = ({ postsList }) => (
         border-bottom: none;
       }
       .thumbnail {
+        height: 180px;
         min-width: 160px;
         object-fit: cover;
       }
       .date {
         color: #999999;
         font-size: 16px;
+      }
+
+      @media only screen and (min-width: 520px) {
+        .link {
+          flex-flow: row;
+        }
+        .title {
+          padding-right: 16px;
+        }
+        .title-wrapper {
+          padding-bottom: 0;
+        }
+        .thumbnail {
+          height: 120px;
+          max-width: 180px;
+          min-width: 180px;
+        }
       }
     `}</style>
   </Layout>
