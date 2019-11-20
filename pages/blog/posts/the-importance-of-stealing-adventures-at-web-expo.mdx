@@ -1,0 +1,43 @@
+import BlogPost from "../../../components/BlogPost";
+import SlidesLive from "../../../components/SlidesLive";
+
+export const meta = {
+  title: "The importance of stealing - adventures at WebExpo",
+  date: "2015-10-27T12:00:00.000Z",
+  thumbnail: "webexpo-2.jpg",
+  canonical: "https://blog.red-badger.com/2015/10/27/the-importance-of-stealing-adventures-at-webexpo"
+};
+
+export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
+
+Last month I was fortunate enough to be invited to speak about React at the WebExpo conference in Prague, the largest tech conference in central Europe. It was a real honour attend, especially as I had never visited the Czech Republic before and the guys at WebExpo were incredibly welcoming. I was asked to attend because WebExpo hadn’t had a talk on React before, which on the surface made the task seem quite easy. But when I got into writing the talk, this turned out not to be the case.
+
+### Pitching it right
+
+How do you pitch a talk on an upcoming framework like React for a conference that hasn’t had a talk on it before? WebExpo didn’t want an introductory talk, and were more interested in something in-depth, but I also had it under good authority from my Czech colleagues that PHP is very popular there and people might not be intimately familiar with the details of React. I needed to try and summarise what I liked so much about React to a group of people that may have only heard of it, while others may be experts.
+
+After some contemplation I finally hit on a solution. I was a beginner to React not so long ago, so why not talk about some of the most interesting discoveries that my team and our London React community have found and learnt along the way. Through explaining some of these concepts and ideas, I could try and demonstrate how React helps to change the way you think about software development.
+
+_Disclaimer: It looks like the company that linked the slides and video were supplied an old version of my slides and desperately tried to piece it together. As a result some of the slides look a bit funky, or don’t fit with what I’m saying. I’ve been assured this will be fixed soon._
+
+<SlidesLive presentationId="38894531" />
+
+But where did this lead us? What should the message of this talk be?
+
+While looking at the list of topics that I could talk about I realised something interesting. All of the best ideas or we had adopted in our projects so far were not original, but stolen. At least, stolen from the world of functional programming. At Red Badger we had known for a while that the functional programming community has some very interesting concepts, and had been researching them to improve our work. So this should not have come as much of a surprise. React itself is so good because of its heavy influence from functional languages, but I found it interesting just how many of the best additional ideas were lifted from this space. Not only that, but these other concepts complement React so well as a result of its functional nature.
+
+### Complementary ideas
+
+Concepts like immutable data, central state storage, or isomorphic rendering are directly stolen from, or are only possible because of functional programming. The functional nature of React and it’s composition as a series of pure functions with a one way data flow allow us to adopt these ideas in the world of javascript.
+
+It is for this reason that we started a new meetup at Red Badger to try and emulate the success of the London React meetup, called Functional Programming for the Web. Because at Red Badger we know that we’re not experts in Functional Programming (yet), and we also know how useful the concepts that lie within this community can be. So we want to learn more.
+
+We also have another project that involves our best ideas around React and functional programming. It’s a lightweight framework around React that we call [Arch](http://arch-js.github.io/) and open sourced earlier this year. Arch wraps up the concepts mentioned above into an easy to set-up and use application framework. It makes playing with functional paradigms on the web easy and fun.
+
+### Going full circle
+
+With Arch and our new functional programming meetup, we are going to try and create a feedback loop for ourselves. We will learn more functional ideas and concepts with our meetup, build them into our own projects, and the ones that stick we will build into Arch to help the community discover them too.
+
+This is the message that I tried to convey to WebExpo last month. By digging deeper into the functional programming community and stealing the best ideas that they have to offer you can greatly improve your React applications. Not only that, but if you bring these ideas back to your respective communities and disciplines, especially to React and javascript, you can benefit the community as a whole.
+
+So get out there and start learning. And if you saw my talk at WebExpo, thanks so much for listening. I hope you enjoyed it because I had a blast!
