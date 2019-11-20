@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Blog: NextPage<Props> = ({ postsList }) => (
-  <Layout>
+  <Layout pageTitle="Blog">
     {postsList.map(post => (
       <div key={post.slug} className="post">
         <Link href={`/blog/posts/${post.slug}`}>
