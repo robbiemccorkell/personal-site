@@ -14,9 +14,8 @@ const mdComponents: Record<string, React.FunctionComponent> = {
 };
 
 const BlogPost: React.FunctionComponent<Props> = ({ children, meta }) => (
-  <Layout>
+  <Layout pageTitle={meta.title || ""}>
     <Head>
-      <title>{meta.title}</title>
       {meta.canonical && <link rel="canonical" href={meta.canonical} />}
       <link
         rel="stylesheet"

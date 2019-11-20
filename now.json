@@ -1,0 +1,5 @@
+{
+  "env": {
+    "SEGMENT_ANALYTICS_KEY": "@personal-website-segment-analytics-key"
+  }
+}
