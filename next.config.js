@@ -59,7 +59,8 @@ module.exports = withPlugins(
     target: "server",
     pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
     env: {
-      blogManifest
+      blogManifest,
+      SEGMENT_ANALYTICS_KEY: process.env.SEGMENT_ANALYTICS_KEY
     }
   }
 );
