@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "GA_MEASUREMENT_ID": "@personal-website-ga-measurement-id"
+    }
+  }
+}
