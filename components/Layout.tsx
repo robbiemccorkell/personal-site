@@ -1,5 +1,10 @@
 import Head from "next/head";
 import Header from "./Header";
+import Router from 'next/router'
+
+Router.events.on('routeChangeComplete', url => {
+  window.analytics.page(url)
+})
 
 interface Props {
   pageTitle: string;

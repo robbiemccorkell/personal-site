@@ -30,6 +30,8 @@
     "@next/mdx": "^9.1.2",
     "@types/node": "^12.11.7",
     "@types/react": "^16.9.11",
+    "@types/segment-analytics": "^0.0.32",
+    "dotenv": "^8.2.0",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-optipng": "^7.1.0",
     "jimp": "^0.8.5",

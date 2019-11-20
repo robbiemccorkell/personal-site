@@ -1,18 +1,13 @@
-import Document, { Head, Main, NextScript } from 'next/document'
-// @ts-ignore
+import Document, { Head, Main, NextScript, DocumentContext } from 'next/document'
 import * as snippet from '@segment/snippet'
+import Router from 'next/router'
 
-const { SEGMENT_ANALYTICS_KEY, NODE_ENV = 'development' } = process.env
+const { SEGMENT_ANALYTICS_KEY = "", NODE_ENV = 'development' } = process.env
 
-console.log(process.env)
-
-
-// @ts-ignore
 export default class extends Document {
-  // @ts-ignore
-  static getInitialProps({ renderPage }) {
-    const { html, head, errorHtml, chunks } = renderPage()
-    return { html, head, errorHtml, chunks }
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
   }
 
   renderSnippet() {

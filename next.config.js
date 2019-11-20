@@ -5,6 +5,7 @@ const rehypeKatex = require("rehype-katex");
 const rehypePrism = require("@mapbox/rehype-prism");
 const withPlugins = require("next-compose-plugins");
 const optimizedImages = require("next-optimized-images");
+require('dotenv').config()
 
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
