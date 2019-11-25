@@ -28,6 +28,5 @@ test("sends route to analytics", async () => {
     </RouterProvider>
   );
 
-  
-  expect(window.analytics.page).toHaveBeenCalledWith(router.route)
+  expect(window.analytics.page).toHaveBeenCalledWith(router.route);
 });

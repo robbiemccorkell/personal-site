@@ -1,7 +1,7 @@
 module.exports = {
-  preset: 'ts-jest',
+  preset: "ts-jest",
   transform: {
-    '^.+\\.tsx?$': 'babel-jest'
+    "^.+\\.tsx?$": "babel-jest"
   },
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"]
 };

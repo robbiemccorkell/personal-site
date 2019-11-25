@@ -1,10 +1,12 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const Header: React.FunctionComponent = () => (
   <nav>
     <div className="nav-wrapper">
       <Link href="/">
-        <a><h1>Robbie McCorkell</h1></a>
+        <a>
+          <h1>Robbie McCorkell</h1>
+        </a>
       </Link>
       <div>
         <Link href="/blog">

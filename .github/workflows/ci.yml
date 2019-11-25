@@ -19,9 +19,12 @@ jobs:
     
     - name: Install Deps
       run: yarn
-    
+
+    - name: Formatting
+      run: yarn check:format
+
     - name: Typecheck
-      run: yarn tsc --noEmit
+      run: yarn check:types
 
     - name: Unit test
       run: yarn test --ci
