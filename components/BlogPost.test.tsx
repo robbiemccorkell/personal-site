@@ -5,13 +5,10 @@ import BlogPost from "./BlogPost";
 test("renders children", () => {
   const message = "Hello World";
   const meta = {};
-  const router = {
-    pathname: "/blog/posts/some-post"
-  };
-  window.analytics = analytics;
+  window.analytics = analytics();
 
   const { queryByText } = render(
-    <RouterProvider value={router}>
+    <RouterProvider>
       <BlogPost meta={meta}>{message}</BlogPost>
     </RouterProvider>
   );
@@ -26,13 +23,10 @@ test("renders metadata", () => {
     canonical: "/other/blog",
     date: "2019-01-01T12:00:00.000Z"
   };
-  const router = {
-    pathname: "/blog/posts/some-post"
-  };
-  window.analytics = analytics;
+  window.analytics = analytics();
 
   const { container, queryByText } = render(
-    <RouterProvider value={router}>
+    <RouterProvider>
       <BlogPost meta={meta}>{message}</BlogPost>
     </RouterProvider>
   );

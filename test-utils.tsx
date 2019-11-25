@@ -2,13 +2,13 @@ import { NextRouter } from "next/router";
 import { RouterContext } from "next/dist/next-server/lib/router-context";
 
 export const RouterProvider: React.FunctionComponent<{
-  value: Partial<NextRouter>;
-}> = ({ children, value }) => {
+  value?: Partial<NextRouter>;
+}> = ({ children, value = {} }) => {
   const router = {
-    pathname: "/blog/posts/some-post",
-    route: "/blog/posts/some-post",
+    pathname: "/some-path",
+    route: "/some-route",
     query: {},
-    asPath: "/blog/posts/some-post",
+    asPath: "/some-path",
     push: async () => true,
     replace: async () => true,
     reload: () => null,
@@ -28,7 +28,7 @@ export const RouterProvider: React.FunctionComponent<{
   );
 };
 
-export const analytics = {
+export const analytics = () => ({
   use: jest.fn(),
   init: jest.fn(),
   addIntegration: jest.fn(),
@@ -47,4 +47,4 @@ export const analytics = {
   debug: jest.fn(),
   on: jest.fn(),
   timeout: jest.fn()
-};
+});
