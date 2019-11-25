@@ -5,7 +5,8 @@ export const meta = {
   title: "React Native – The killer feature that nobody talks about",
   date: "2015-03-04T12:00:00.000Z",
   thumbnail: "react-banner.jpg",
-  canonical: "https://blog.red-badger.com/2015/03/04/react-native-the-killer-feature-that-nobody-talks-about"
+  canonical:
+    "https://blog.red-badger.com/2015/03/04/react-native-the-killer-feature-that-nobody-talks-about"
 };
 
 export default ({ children }) => <BlogPost meta={meta}>{children}</BlogPost>;
@@ -26,9 +27,16 @@ Luckily for me, conference attendees were given access to a private repo with Re
 
 Since then I’ve been leveraging my early access to [talk publicly](http://youtu.be/3wcouW5lXto?t=37m10s) about React Native to some [great reception](http://www.meetup.com/London-React-User-Group/events/220296004/). It’s been fascinating discussing this with people in the community because I hear very little scepticism and a lot of excitement from web developers and native developers alike (at least those that come to a React meetup).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3wcouW5lXto" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/3wcouW5lXto"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
 
-However the more I talked about it the more I realised the message I was conveying in my presentations was not quite right. One of the major themes I focused on was the fact javascript developers like myself can now easily get into the native world, and that companies only need to hire for one skill set to build and maintain their entire suite of applications. 
+However the more I talked about it the more I realised the message I was conveying in my presentations was not quite right. One of the major themes I focused on was the fact javascript developers like myself can now easily get into the native world, and that companies only need to hire for one skill set to build and maintain their entire suite of applications.
 
 This is still a hugely important advantage, but it isn’t the major benefit and doesn’t highlight what React Native offers over competing frameworks. It also doesn’t perfectly align with my view that looking for a tool or framework just to reduce the need for learning another language is lazy thinking. There’s more to React Native than this.
 
@@ -48,11 +56,21 @@ React really shines when you start to scale an application, because the complexi
 
 **Angular:**
 
-<Codepen hash="RNBVZz" user="robbiemccorkell" preview={false} defaultTab="js,result" />
+<Codepen
+  hash="RNBVZz"
+  user="robbiemccorkell"
+  preview={false}
+  defaultTab="js,result"
+/>
 
 **React:**
 
-<Codepen hash="VYBbyN" user="robbiemccorkell" preview={false} defaultTab="js,result" />
+<Codepen
+  hash="VYBbyN"
+  user="robbiemccorkell"
+  preview={false}
+  defaultTab="js,result"
+/>
 
 You can see in the code above that the React implementation is pretty short, even with the markup defined in javascript. This is mostly because of the lack of linking functions connecting the code to the markup. React will just figure this out by itself. With all of this re-rendering of the markup every time something changes, you would think React would be quite slow, but it's not. For a demonstration of how React performs in comparison to other frameworks check out [Ryan Florence's presentation from React conf](http://youtu.be/z5e7kWSHWTg?t=2m26s).
 
@@ -66,7 +84,7 @@ In the talk I mentioned above I demonstrated some of my ground breaking research
 
 The sample code below defines the full application seen in the screenshot including view structure, styling and application logic. What you should notice here is that the code is extremely unremarkable. It’s the same kind of React we know and love simply applied to a native app context, and that is what’s so remarkable about it. The only differences to traditional React web development are the element names[^1] and the inline styling[^2].
 
-Building the same application in Xcode using Swift requires a similarly small amount of code, but it does require the developer to perform a process of clicking and dragging to create elements, constraints and method stubs in the code which quickly becomes tedious. As the application becomes more complex, the developer must manage collections of view controllers that manually update the view when required. But in React the view is declared once and all the developer must do is make sure the data inside each component changes when necessary. 
+Building the same application in Xcode using Swift requires a similarly small amount of code, but it does require the developer to perform a process of clicking and dragging to create elements, constraints and method stubs in the code which quickly becomes tedious. As the application becomes more complex, the developer must manage collections of view controllers that manually update the view when required. But in React the view is declared once and all the developer must do is make sure the data inside each component changes when necessary.
 
 Other frameworks have crossed the JS-native divide in a similar way to React. NativeScript neatly gives developers direct access to native APIs in javascript[^3], and the creators of Titanium have been [very vocal](http://www.tidev.io/2015/01/30/reacting-to-react-native/) about the fact that they have provided similar javascript bridging and CSS styling for native apps for years. But all of the articles I’ve read that compare these frameworks are missing the biggest differentiator between React Native and the others, and that is React itself.
 
@@ -74,16 +92,14 @@ When discussing React Native, the ability to write native apps in javascript onl
 
 ### React as the view engine
 
-The important things in the future of React won't be more features, add-ons or utility libraries. Yes, some improvements, optimisations and structural changes will be built in down the road, but I don't think Facebook want to overcomplicate something that works so brilliantly and simply already. 
+The important things in the future of React won't be more features, add-ons or utility libraries. Yes, some improvements, optimisations and structural changes will be built in down the road, but I don't think Facebook want to overcomplicate something that works so brilliantly and simply already.
 
 We already have React being applied to different areas with React Native, and at React conf Netflix announced they were taking a similar approach, even applying React to embedded devices like TVs using their own custom built rendering engine. We've also heard that Flipboard have swapped out the DOM in favour of canvas elements in their latest web app to impressive results.
 
-In the future, we are going to see React applied to many different areas of front-end development by simply swapping the DOM and browser out for another view structure and rendering engine, whether that be mobile and desktop native elements, canvas, embedded devices, or who knows what. This will allow developers to use the power of React and its development patterns in any environment.  
+In the future, we are going to see React applied to many different areas of front-end development by simply swapping the DOM and browser out for another view structure and rendering engine, whether that be mobile and desktop native elements, canvas, embedded devices, or who knows what. This will allow developers to use the power of React and its development patterns in any environment.
 
 Writing native applications for our phones is just the beginning, and it’s a direction I can stand behind. The biggest benefit of react native isn’t javascript. It’s React.
 
 [^1]: The two base elements we can work with are 'View' and 'Text' and which act as block and inline elements respectively. Coming from the world of the DOM, we can simply translate 'div' to 'View' and 'span' to 'Text' and we’re basically good to go. Any other elements like 'TouchableHighlight' are utility components provided to us by React Native’s component library. <a name="ref-1" />
-
 [^2]: Facebook have provided their own CSS based styling interpretation including their own clever implementation of Flexbox. We now write our styles as javascript objects and apply them inline to our view elements. Currently, styles don’t seem to cascade, which is both an advantage and disadvantage depending on your use case. But the interesting thing about applying styles in this way is you have the full power of javascript at your fingertips. With a bit of forethought you could conceivably come up with clever systems to share global styles, and apply them to elements automatically in your application. <a name="ref-2" />
-
 [^3]: I think NativeScript could be an interesting way to build react native bridges to native APIs, and we'll be experimenting with this in the future. However, I’m still sceptical as to whether the overhead is worth it, and maybe if we want to build native bridges we should just learn the bloody language! <a name="ref-3" />

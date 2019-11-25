@@ -17,7 +17,9 @@ const Blog: NextPage<Props> = ({ postsList }) => (
             <div className="title-wrapper">
               <h2 className="title">{post.meta.title}</h2>
               {post.meta.date && (
-                <div className="date">{format(parseISO(post.meta.date), "do MMMM yyyy")}</div>
+                <div className="date">
+                  {format(parseISO(post.meta.date), "do MMMM yyyy")}
+                </div>
               )}
             </div>
             {post.meta.thumbnail && (

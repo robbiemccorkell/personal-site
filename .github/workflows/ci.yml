@@ -1,0 +1,30 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Read Node version
+      run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+      id: node-version
+    
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '${{ steps.node-version.outputs.NODE_VERSION }}'
+    
+    - name: Install Deps
+      run: yarn
+
+    - name: Formatting
+      run: yarn check:format
+
+    - name: Typecheck
+      run: yarn check:types
+
+    - name: Unit test
+      run: yarn test --ci

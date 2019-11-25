@@ -1,7 +1,7 @@
 interface Props {
   presentationId: string;
-  verticalEnabled: boolean;
-  autoPlay: boolean;
+  verticalEnabled?: boolean;
+  autoPlay?: boolean;
 }
 
 const SlidesLive: React.FunctionComponent<Props> = ({

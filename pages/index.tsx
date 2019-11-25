@@ -1,11 +1,9 @@
 import { NextPage } from "next";
-import Router from 'next/router'
+import Router from "next/router";
 
 const redirectUrl = "/blog";
 
-const Home: NextPage = () => (
-  <div />
-);
+const Home: NextPage = () => <div />;
 
 Home.getInitialProps = async ({ res }) => {
   if (res) {

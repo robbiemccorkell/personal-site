@@ -1,4 +1,4 @@
-declare module '@segment/snippet' {
+declare module "@segment/snippet" {
   interface Opts {
     host?: string;
     apiKey: string;
