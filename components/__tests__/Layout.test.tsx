@@ -1,6 +1,6 @@
 import { render, waitForDomChange } from "@testing-library/react";
-import { RouterProvider, analytics } from "../test-utils";
-import Layout from "./Layout";
+import { RouterProvider, analytics } from "../../test-utils";
+import Layout from "../Layout";
 
 test("renders children", () => {
   const message = "Hello World";

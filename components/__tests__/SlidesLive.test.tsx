@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import SlidesLive from "./SlidesLive";
+import SlidesLive from "../SlidesLive";
 
 test("injects parameters", () => {
   const presentationId = "123";

@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import P from "./P";
+import P from "../P";
 
 test("renders children", () => {
   const message = "Hello World";
