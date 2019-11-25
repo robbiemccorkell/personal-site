@@ -22,3 +22,6 @@ jobs:
     
     - name: Typecheck
       run: yarn tsc --noEmit
+
+    - name: Unit test
+      run: yarn test --ci
