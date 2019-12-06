@@ -3,29 +3,12 @@
 exports[`injects parameters 1`] = `
 <div>
   <div>
-    
-    
     <div
       id="presentation-embed-123"
     />
-    
-    
     <script
       src="https://slideslive.com/embed_presentation.js"
     />
-    
-    
-    <script>
-      
-        embed = new SlidesLiveEmbed('presentation-embed-123', {
-            presentationId: '123',
-            autoPlay: true,
-            verticalEnabled: false
-        });
-    
-    </script>
-    
-  
   </div>
 </div>
 `;
