@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div>
+  <div
+    class="jsx-391651169 footer"
+  >
+    <div
+      class="jsx-985212870 wrapper"
+    >
+      <div
+        class="jsx-391651169 inner"
+      >
+        <div
+          class="jsx-391651169 socials"
+        >
+          <a
+            class="jsx-391651169"
+            href="https://github.com/robbiemccorkell"
+            target="_blank"
+          >
+            <img
+              class="jsx-391651169"
+              src="file"
+            />
+          </a>
+          <a
+            class="jsx-391651169"
+            href="https://twitter.com/robbiemccorkell"
+            target="_blank"
+          >
+            <img
+              class="jsx-391651169"
+              src="file"
+            />
+          </a>
+          <a
+            class="jsx-391651169"
+            href="https://www.instagram.com/robbiemccorkell/"
+            target="_blank"
+          >
+            <img
+              class="jsx-391651169"
+              src="file"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

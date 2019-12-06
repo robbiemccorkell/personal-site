@@ -1,23 +1,25 @@
 import Link from "next/link";
+import ContentWrapper from "./ContentWrapper";
 
 const Header: React.FunctionComponent = () => (
   <nav>
-    <div className="nav-wrapper">
-      <Link href="/">
-        <a>
-          <h1>Robbie McCorkell</h1>
-        </a>
-      </Link>
-      <div>
-        <Link href="/blog">
-          <a>Blog</a>
+    <ContentWrapper>
+      <div className="nav-wrapper">
+        <Link href="/">
+          <a>
+            <h1>Robbie McCorkell</h1>
+          </a>
         </Link>
+        <div>
+          <Link href="/blog">
+            <a>Blog</a>
+          </Link>
+        </div>
       </div>
-    </div>
+    </ContentWrapper>
     <style jsx>{`
       .nav-wrapper {
-        max-width: 675px;
-        padding: 4px 15px;
+        padding: 4px 0;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;

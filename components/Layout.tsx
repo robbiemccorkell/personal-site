@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Header from "./Header";
+import Footer from "./Footer";
+import ContentWrapper from "./ContentWrapper";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -21,21 +23,23 @@ const Layout: React.FunctionComponent<Props> = props => {
       </Head>
       <div className="outer">
         <Header />
-        <div className="inner">{props.children}</div>
+        <ContentWrapper>
+          <div className="inner">{props.children}</div>
+        </ContentWrapper>
+        <Footer />
         <style jsx>{`
-          .outer {
-            min-width: 320px;
-          }
           .inner {
-            max-width: 675px;
-            margin: 0px auto;
-            padding: 32px 15px;
+            padding: 32px 0;
           }
         `}</style>
         <style jsx global>{`
           * {
             box-sizing: border-box;
             font-family: -apple-system, Helvetica, Arial, sans-serif;
+          }
+
+          body {
+            margin: 0;
           }
         `}</style>
       </div>

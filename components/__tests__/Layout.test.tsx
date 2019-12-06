@@ -1,4 +1,4 @@
-import { render, waitForDomChange } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { RouterProvider, analytics } from "../../test-utils";
 import Layout from "../Layout";
 
