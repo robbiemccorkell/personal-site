@@ -42,6 +42,28 @@ const talks = [
       "Over the last year React has quickly changed from being the new kid on the block, to the next big framework everyone wants to use. As the React community grows, so too does the number of great ideas and tools people can use in their own React apps. Many of these tools have no official implementation, but can be extremely useful to integrate into your apps. In this talk I will discuss some of the latest ideas the React community has to offer, and how you can use them to supercharge your React applications, including isomorphic rendering and routing, the advantages of global application state, immutable data structure and how they make React even better – and more!",
     location: "WebExpo Prague",
     renderContent: () => <SlidesLive presentationId="38894531" />
+  },
+  {
+    title: "Intro to Firebase in React",
+    date: "2014-09-01T12:00:00.000Z",
+    description: "Creating quick live-syncing web apps with Firebase and React",
+    location: "React London Meetup",
+    renderContent: () => <YouTube videoId="XAA2DGbxPrk?start=6240" />
+  },
+  {
+    title: "Going native with React",
+    date: "2015-02-01T12:00:00.000Z",
+    description: "An introduction to React Native",
+    location: "React London Meetup",
+    renderContent: () => <YouTube videoId="3wcouW5lXto?start=2242" />
+  },
+  {
+    title: "Pride in London and Red Badger",
+    date: "2018-07-01T12:00:00.000Z",
+    description:
+      "An Intro Into Building the Pride London app using React Native",
+    location: "React London Meetup",
+    renderContent: () => <YouTube videoId="sYEFM0HWa9I?start=281" />
   }
 ];
 
