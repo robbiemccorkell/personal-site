@@ -10,9 +10,12 @@ const Header: React.FunctionComponent = () => (
             <h1>Robbie McCorkell</h1>
           </a>
         </Link>
-        <div>
+        <div className="links">
           <Link href="/blog">
             <a>Blog</a>
+          </Link>
+          <Link href="/talks">
+            <a>Talks</a>
           </Link>
         </div>
       </div>
@@ -34,6 +37,9 @@ const Header: React.FunctionComponent = () => (
       }
       a:hover {
         text-decoration: underline;
+      }
+      .links a {
+        margin-left: 14px;
       }
     `}</style>
   </nav>

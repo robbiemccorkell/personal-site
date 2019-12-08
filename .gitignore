@@ -5,3 +5,5 @@ yarn-error.log
 out/
 
 .env
+
+.vscode
