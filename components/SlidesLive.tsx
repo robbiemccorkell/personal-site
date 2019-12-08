@@ -8,7 +8,7 @@ interface Props {
 
 const SlidesLive: React.FunctionComponent<Props> = ({
   presentationId,
-  verticalEnabled = true,
+  verticalEnabled = false,
   autoPlay = false
 }) => {
   const script = `
