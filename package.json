@@ -26,7 +26,6 @@
     "@mdx-js/mdx": "^1.5.1",
     "@segment/snippet": "^4.4.0",
     "date-fns": "^2.7.0",
-    "isomorphic-unfetch": "^3.0.0",
     "next": "^9.1.4",
     "react": "^16.11.0",
     "react-codepen-embed": "^1.0.1",
@@ -37,7 +36,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
-    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@mapbox/rehype-prism": "^0.4.0",
     "@mdx-js/loader": "^1.5.1",
     "@next/mdx": "^9.1.2",
