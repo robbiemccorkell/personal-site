@@ -17,7 +17,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@test-utils": ["test-utils"],
+      "@lib": ["lib"]
+    }
   },
   "exclude": [
     "node_modules"

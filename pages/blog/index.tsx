@@ -1,8 +1,9 @@
 import Link from "next/link";
-import Layout from "components/Layout";
+import Layout from "@components/Layout";
 import { parseISO, format } from "date-fns";
-import { BlogEntry, BlogManifest } from "types";
-import { NextPage } from "next";
+import { BlogEntry } from "types";
+import { NextPage, GetStaticProps } from "next";
+import { getBlogManifest } from "@lib";
 
 interface Props {
   postsList: BlogEntry[];
@@ -86,10 +87,8 @@ const Blog: NextPage<Props> = ({ postsList }) => (
   </Layout>
 );
 
-Blog.getInitialProps = async () => {
-  const blogManifest = (process.env.blogManifest || {}) as BlogManifest;
-
-  return { postsList: blogManifest };
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  return { props: { postsList: getBlogManifest("./pages/blog/posts") } };
 };
 
 export default Blog;
