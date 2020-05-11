@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Layout from "../../components/Layout";
+import Layout from "components/Layout";
 import { parseISO, format } from "date-fns";
-import { BlogEntry, BlogManifest } from "../../types";
+import { BlogEntry, BlogManifest } from "types";
 import { NextPage } from "next";
 
 interface Props {
@@ -25,7 +25,7 @@ const Blog: NextPage<Props> = ({ postsList }) => (
             {post.meta.thumbnail && (
               <img
                 className="thumbnail"
-                src={require(`../../public/static/img/${post.meta.thumbnail}?size=400`)}
+                src={require(`public/static/img/${post.meta.thumbnail}?size=400`)}
               />
             )}
           </a>
