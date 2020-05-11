@@ -9,6 +9,8 @@ export const RouterProvider: React.FunctionComponent<{
     route: "/some-route",
     query: {},
     asPath: "/some-path",
+    basePath: "/some-path",
+    isFallback: false,
     push: async () => true,
     replace: async () => true,
     reload: () => null,
