@@ -1,5 +1,5 @@
 import { render, getNodeText } from "@testing-library/react";
-import { RouterProvider, analytics } from "../../test-utils";
+import { RouterProvider, analytics } from "@test-utils";
 import BlogPost from "../BlogPost";
 
 test("renders children", () => {

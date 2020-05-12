@@ -10,5 +10,3 @@ export interface BlogEntry {
   slug: string;
   meta: BlogMeta;
 }
-
-export type BlogManifest = BlogEntry[];
