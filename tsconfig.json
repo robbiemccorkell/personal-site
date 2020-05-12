@@ -21,7 +21,7 @@
     "paths": {
       "@components/*": ["components/*"],
       "@public/*": ["public/*"],
-      "@test-utils": ["test-utils"],
+      "@lib/*": ["lib/*"],
       "@lib": ["lib"]
     }
   },

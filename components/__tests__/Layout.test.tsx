@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { RouterProvider, analytics } from "@test-utils";
+import { RouterProvider, analytics } from "@lib/test-utils";
 import Layout from "../Layout";
 
 test("renders children", () => {

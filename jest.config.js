@@ -5,7 +5,7 @@ module.exports = {
   },
   moduleNameMapper: {
     "\\.(svg)$": "<rootDir>/__mocks__/fileMock.js",
-    "^@(components|test-utils|lib|public)(.*)$": "<rootDir>/$1$2"
+    "^@(components|lib|public)(.*)$": "<rootDir>/$1$2"
   },
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"]
 };

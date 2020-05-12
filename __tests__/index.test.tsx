@@ -1,7 +1,7 @@
 import Blog from "../pages/blog";
 import { render } from "@testing-library/react";
 import { BlogEntry } from "../types";
-import { RouterProvider, analytics } from "@test-utils";
+import { RouterProvider, analytics } from "@lib/test-utils";
 
 test("it renders list of posts", () => {
   window.analytics = analytics();
