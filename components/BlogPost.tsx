@@ -34,7 +34,7 @@ const BlogPost: React.FunctionComponent<Props> = ({ children, meta }) => (
       </p>
     )}
     {meta.thumbnail && (
-      <img src={require(`../public/static/img/${meta.thumbnail}?size=645`)} />
+      <img src={require(`@public/static/img/${meta.thumbnail}?size=645`)} />
     )}
     <MDXProvider components={mdComponents}>{children}</MDXProvider>
     <style jsx>{`

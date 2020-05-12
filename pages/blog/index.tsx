@@ -26,7 +26,7 @@ const Blog: NextPage<Props> = ({ postsList }) => (
             {post.meta.thumbnail && (
               <img
                 className="thumbnail"
-                src={require(`public/static/img/${post.meta.thumbnail}?size=400`)}
+                src={require(`@public/static/img/${post.meta.thumbnail}?size=400`)}
               />
             )}
           </a>
