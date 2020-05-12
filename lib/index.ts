@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 
 const metaMatcher = /export\s+const\s+meta\s+=\s+(\{(\n|.)*?\n\})/;
 
