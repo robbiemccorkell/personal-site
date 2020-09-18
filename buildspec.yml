@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12.x
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm install
